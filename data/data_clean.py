@@ -26,4 +26,11 @@ plt.show()
 
 out=price_recent_5000000_new.reshape(price_recent_5000000_new.shape[0],1)
 np.savetxt("BitCoin_Prepared.csv", out, delimiter=",")
-  
+
+train_data=out[:600]
+vali_data=out[601:801]
+test_data=out[802:]
+
+np.savetxt("BitCoin_train.csv", train_data, delimiter=",")
+np.savetxt("BitCoin_vali.csv", vali_data, delimiter=",")
+np.savetxt("BitCoin_test.csv", test_data, delimiter=",")
