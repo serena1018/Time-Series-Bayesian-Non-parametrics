@@ -1,0 +1,48 @@
+\begin{thebibliography}{6}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Duvenaud et~al.(2013)Duvenaud, Lloyd, Grosse, Tenenbaum, and
+  Zoubin]{StructDiscNonPara}
+Duvenaud, David, Lloyd, James, Grosse, Roger, Tenenbaum, Joshua, and Zoubin,
+  Ghahramani.
+\newblock Structure discovery in nonparametric regression through compositional
+  kernel search.
+\newblock In \emph{Proceedings of the 30th International Conference on Machine
+  Learning}. JMLR: W\&CP, 2013.
+
+\bibitem[Hensman et~al.(2014)Hensman, Rattray, and Lawrence]{FastNonP}
+Hensman, James, Rattray, Magnus, and Lawrence, Neil~D.
+\newblock Fast nonparametric clustering of structured time-series.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 37:\penalty0 383--393, 2014.
+
+\bibitem[Ross \& Dy(2013)Ross and Dy]{DPGPwithConstraints}
+Ross, James~C. and Dy, Jennifer~G.
+\newblock Nonparametric mixture of gaussian process with constraints.
+\newblock In \emph{Proceedings of the 30th International Conference on Machine
+  Learning}. JMLR: W\&CP, 2013.
+
+\bibitem[Saatci et~al.(2010)Saatci, Turner, and Rasmussen]{GPChangePointModels}
+Saatci, Yunus, Turner, Ryan, and Rasmussen, Carl~Edward.
+\newblock Gaussian process change point models.
+\newblock In \emph{Proceedings of the 27th International Conference on Machine
+  Learning}. JMLR, 2010.
+
+\bibitem[Tong \& Choi(2017)Tong and Choi]{IBPGP}
+Tong, Anh and Choi, Jaesik.
+\newblock Discovering explainable latent covariance structure for multiple time
+  series.
+\newblock 2017.
+
+\bibitem[Wilson \& Nickisch(2015)Wilson and Nickisch]{KISS-GP}
+Wilson, Andrew~Gordon and Nickisch, Hannes.
+\newblock Kernel interpolation for scalable structured gaussian process
+  (kiss-gp).
+\newblock In \emph{Proceedings of 32nd International Conference on Machine
+  Learning}. JMLR: W\&CP, 2015.
+
+\end{thebibliography}
