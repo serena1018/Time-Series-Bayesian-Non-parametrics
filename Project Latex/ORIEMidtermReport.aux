@@ -20,16 +20,31 @@
 \citation{StructDiscNonPara}
 \citation{DPGPwithConstraints}
 \citation{GPChangePointModels}
+\citation{IBPshort}
 \citation{IBPGP}
+\citation{SMK}
 \citation{KISS-GP}
-\newlabel{AlgFlow}{{1}{2}{Algorithmic flow of the proposed time-series model. In offline training (light blue) the data is clustered into patterns with the IBP process and then GP regression is preformed over each cluster with the SM kernel. In online inference (black) the model performs chi-squared goodness of fit tests to cluster new data and then re-learns SM kernel hyperparameters for the cluster}{figure.1}{}}
+\citation{IBPlong}
+\newlabel{AlgFlow}{{1}{2}{Algorithmic flow of the proposed time-series model. In offline training (light blue) the number of clusters is discovered with the IBP and the data is clustered with GP regression with a SM kernel. In online inference (black) the model performs chi-squared goodness of fit tests to cluster new data and then re-learns SM kernel hyperparameters for the cluster}{figure.1}{}}
+\citation{GPML}
+\citation{SMK}
+\citation{SMK}
 \newlabel{IBPcomp}{{2}{3}{Comparison of traditional clustering methods with the IBP. (Left) Traditional clustering where each data point (row) can only belong to one cluster (column). (Right) In the IBP, each data point can belong to multiple clusters}{figure.2}{}}
-\newlabel{IBPClust}{{3}{4}{The clustering result from IBP with Gibbs sampling}{figure.3}{}}
+\citation{BarSha}
+\citation{KISS-GP}
+\citation{WellLog}
 \bibdata{example_paper}
-\bibcite{StructDiscNonPara}{{1}{2013}{{Duvenaud et~al.}}{{Duvenaud, Lloyd, Grosse, Tenenbaum, and Zoubin}}}
-\bibcite{FastNonP}{{2}{2014}{{Hensman et~al.}}{{Hensman, Rattray, and Lawrence}}}
-\bibcite{DPGPwithConstraints}{{3}{2013}{{Ross \& Dy}}{{Ross and Dy}}}
-\bibcite{GPChangePointModels}{{4}{2010}{{Saatci et~al.}}{{Saatci, Turner, and Rasmussen}}}
-\bibcite{IBPGP}{{5}{2017}{{Tong \& Choi}}{{Tong and Choi}}}
-\bibcite{KISS-GP}{{6}{2015}{{Wilson \& Nickisch}}{{Wilson and Nickisch}}}
+\bibcite{BarSha}{{1}{2001}{{Bar-Shalom et~al.}}{{Bar-Shalom, Li, and Kirubarajan}}}
+\bibcite{StructDiscNonPara}{{2}{2013}{{Duvenaud et~al.}}{{Duvenaud, Lloyd, Grosse, Tenenbaum, and Zoubin}}}
+\bibcite{IBPlong}{{3}{2011}{{Griffiths \& Ghahramani}}{{Griffiths and Ghahramani}}}
+\bibcite{FastNonP}{{4}{2014}{{Hensman et~al.}}{{Hensman, Rattray, and Lawrence}}}
+\bibcite{WellLog}{{5}{2017}{{Lavielle}}{{}}}
+\bibcite{GPML}{{6}{2006}{{Rasmussen \& Williams}}{{Rasmussen and Williams}}}
+\bibcite{DPGPwithConstraints}{{7}{2013}{{Ross \& Dy}}{{Ross and Dy}}}
+\bibcite{GPChangePointModels}{{8}{2010}{{Saatci et~al.}}{{Saatci, Turner, and Rasmussen}}}
+\bibcite{IBPGP}{{9}{2017}{{Tong \& Choi}}{{Tong and Choi}}}
+\bibcite{SMK}{{10}{2013}{{Wilson \& Adams}}{{Wilson and Adams}}}
+\bibcite{KISS-GP}{{11}{2015}{{Wilson \& Nickisch}}{{Wilson and Nickisch}}}
+\bibcite{IBPshort}{{12}{2012}{{Yildirim}}{{}}}
 \bibstyle{icml2016}
+\newlabel{IBPClust}{{3}{5}{The clustering result from IBP with Gibbs sampling. (Top) Unclustered Well Log data. (Bottom) Clustered data with red, green, and blue representing 3 different clusters}{figure.3}{}}

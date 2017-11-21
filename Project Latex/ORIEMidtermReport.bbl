@@ -1,9 +1,14 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{12}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bar-Shalom et~al.(2001)Bar-Shalom, Li, and Kirubarajan]{BarSha}
+Bar-Shalom, Yaakov, Li, X.~Rong, and Kirubarajan, Thiagalingam.
+\newblock \emph{Estimation with Applications to Tracking and Navigation}.
+\newblock John Wiley \& Sons, Inc., 2001.
 
 \bibitem[Duvenaud et~al.(2013)Duvenaud, Lloyd, Grosse, Tenenbaum, and
   Zoubin]{StructDiscNonPara}
@@ -14,11 +19,26 @@ Duvenaud, David, Lloyd, James, Grosse, Roger, Tenenbaum, Joshua, and Zoubin,
 \newblock In \emph{Proceedings of the 30th International Conference on Machine
   Learning}. JMLR: W\&CP, 2013.
 
+\bibitem[Griffiths \& Ghahramani(2011)Griffiths and Ghahramani]{IBPlong}
+Griffiths, Thomas~L.. and Ghahramani, Zoubin.
+\newblock The indian buffet process: An introduction and review.
+\newblock \emph{JMLR}, 2011.
+
 \bibitem[Hensman et~al.(2014)Hensman, Rattray, and Lawrence]{FastNonP}
 Hensman, James, Rattray, Magnus, and Lawrence, Neil~D.
 \newblock Fast nonparametric clustering of structured time-series.
 \newblock \emph{IEEE Transactions on Pattern Analysis and Machine
   Intelligence}, 37:\penalty0 383--393, 2014.
+
+\bibitem[Lavielle(2017)]{WellLog}
+Lavielle, Marc.
+\newblock Statistics in action with r.
+\newblock Online, March 2017.
+
+\bibitem[Rasmussen \& Williams(2006)Rasmussen and Williams]{GPML}
+Rasmussen, Carl~Edward and Williams, Christopher K.~I.
+\newblock \emph{Gaussian Processes for Machine Learning}.
+\newblock The MIT Press, 2006.
 
 \bibitem[Ross \& Dy(2013)Ross and Dy]{DPGPwithConstraints}
 Ross, James~C. and Dy, Jennifer~G.
@@ -38,11 +58,21 @@ Tong, Anh and Choi, Jaesik.
   series.
 \newblock 2017.
 
+\bibitem[Wilson \& Adams(2013)Wilson and Adams]{SMK}
+Wilson, Andrew~Gordon and Adams, Ryan~Prescott.
+\newblock Gaussian process kernels for pattern discovery and extrapolation.
+\newblock \emph{JMLR}, 2013.
+
 \bibitem[Wilson \& Nickisch(2015)Wilson and Nickisch]{KISS-GP}
 Wilson, Andrew~Gordon and Nickisch, Hannes.
 \newblock Kernel interpolation for scalable structured gaussian process
   (kiss-gp).
 \newblock In \emph{Proceedings of 32nd International Conference on Machine
   Learning}. JMLR: W\&CP, 2015.
+
+\bibitem[Yildirim(2012)]{IBPshort}
+Yildirim, Ilker.
+\newblock Bayesian statistics: Indian buffet process.
+\newblock 2012.
 
 \end{thebibliography}
