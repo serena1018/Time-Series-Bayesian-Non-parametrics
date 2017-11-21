@@ -1,0 +1,133 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2016 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the following line _only_ if you're still using LaTeX 2.09.
+%\documentstyle[icml2016,epsf,natbib]{article}
+% If you rely on Latex2e packages, like most moden people use this:
+\documentclass{article}
+
+% use Times
+\usepackage{times}
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure} 
+
+% For citations
+\usepackage{natbib}
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% As of 2011, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2016} with
+% \usepackage[nohyperref]{icml2016} above.
+\usepackage{hyperref}
+
+% Packages hyperref and algorithmic misbehave sometimes.  We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+%\newcommand{\ICML@appearing}{}
+% Employ the following version of the ``usepackage'' statement for
+% submitting the draft version of the paper for review.  This will set
+% the note in the first column to ``Under review.  Do not distribute.''
+%\usepackage[accepted]{icml2016} 
+
+% Employ this version of the ``usepackage'' statement after the paper has
+% been accepted, when creating the final version.  This will set the
+% note in the first column to ``Proceedings of the...''
+\usepackage[accepted]{icml2016}
+
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Predictive Model for Time-Series Data with Bayesian Non-parametrics}
+
+\begin{document} 
+
+\twocolumn[
+\icmltitle{Predictive Model for Time-Series Data with Bayesian Non-parametrics}
+
+\vspace{-.15in}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2016
+% package.
+\icmlauthor{Chawannut Prommin, cp626}{cp626@cornell.edu}
+%\icmladdress{cp626}
+\vspace{.05in}
+\icmlauthor{Serena Li, sl2327}{sl2327@cornell.edu}
+%\icmladdress{sl2327}
+\vspace{.05in}
+\icmlauthor{Yutao Han, yh675}{yh675@cornell.edu}
+%\icmladdress{yh675}
+\vspace{.05in}
+
+% You may provide any keywords that you 
+% find helpful for describing your paper; these are used to populate 
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{boring formatting information, machine learning, ICML}
+
+\vskip 0.3in
+]
+
+\begin{abstract} 
+We propose a novel model for time-series data using a Bayesian non-parametric framework. Training data is clustered into characteristic segments using a Dirichlet Process Gaussian Process. The Indian Buffet Process then is used to further learn a composition of kernel functions that models the characteristic segments. Finally, we propose a framework to improve accuracy of prediction for online inference and extrapolation of the time-series. We consider the improvement on scalability of the model during online inference due to evaluation of the clusters rather than the entire dataset.
+\end{abstract} 
+\vspace{-.25in}
+\section{Motivation}
+
+Time-series data in several domains is highly volatile and difficult to predict (for example, stock prices fluctuate wildly and are difficult to model accurately) due to their often non-stationary nature. Essentially, different locations in input space produce outputs described with variable functions. We propose an algorithm to model the non stationarity of time-series data by using a clustering method to segment time series data into different characteristic segments that correspond to the varying functions (with respect to input space) that model the outputs. For each cluster we will utilize the Indian Buffet Process (IBP) to learn a composition of kernel functions that models the underlying structures. Modeling the data in kernel function space allows for the flexibility of a non-parametric model while also capturing uncertainty in a probabilistic manner. Our approach is well-suited for non-stationary time-series data because it captures the characteristic segments of time-series data in a formal probabilistic model. Our model also allows for kernel composition learning in parallel which makes it scalable. In addition, given a model of time-series data, the ability for online prediction is desired. Generative time-series models have applications in a broad range of applications such as stock market prediction, earthquake detection, and weather forecasting. As more data is observed, the uncertainty in online predictions should decrease.
+
+\section{Related Work (Relevant Papers)} 
+ 
+Previous work has modeled time-series data using purely non-parametric models \cite{FastNonP} and a combination of parametric and non-parametric models \cite{StructDiscNonPara}. Parametric models generally require less data to learn but do not have the inherent flexibility of non-parametric models. Data-driven approaches have modeled time-series data with Gaussian Processes (GP) and Dirichlet Process Gaussian Process (DPGP) \cite{DPGPwithConstraints}. These approaches have had success in clustering multiple trajectories of time-series data, but do not identify characteristic segments of a single time-series trajectory, which would potentially allow for higher accuracy during online inference. Other popular approaches to modeling time-series data find change points, which correspond to boundaries between characteristic segments, with a run-length variable and models the characteristic segments between change points accordingly \cite{GPChangePointModels}. A drawback of this type of approach is that the prior over the distribution of change points is not appropriate for modeling real data. A more statistically rigorous approach is desired. There has been application of the IBP to clustering multiple time-series trajectories into GP kernels \cite{IBPGP}. However, this approach does not find correlations among characteristic segments for single trajectory time-series data. Modeling with GPs can cause scalability problems due to the complexity of inverting the kernel matrix; the community has developed approximation methods that exploit kernel matrix structure for fast inference \cite{KISS-GP}.
+
+Online learning with GPs expects Bayesian updates of the mean function, kernel, and posterior. \cite{SparseGPOnline} showed that by unfolding the recursion steps in the update rules we arrive at the parametrization for the approximate posterior GP as a function of the initial kernel and the likelihoods, which is a sequential propagation of an approximate Gaussian distribution. However, the parameter space will grow as more data is observed which can cause intractability with massive datasets. To ease this problem, sparseness is introduced into the parameter space to approximate the posterior. However, the scalability still bottlenecks with big data applications.   
+
+\section{Technical Approach}
+Our novel algorithm will (1) identify characteristic segments of time-series data using DPGP clustering, (2) perform kernel learning of the characteristic sections using the IBP and GPs, and (3) perform online inference.
+\subsection{Offline Training}
+\subsubsection{DPGP clustering (Completion by 11/10)}
+We propose a method to identify characteristic sections of time-series data by using DPGP. The number of clusters or characteristic segments are drawn from a DP. A GP is fit over each cluster and hyperparameters are optimized using marginal likelihood. Gibbs sampling is employed to iteratively sample the clusters until satisfactory performance is achieved. Possible kernel functions to use include a Deep Kernel Learning (DKL) function (to exploit advantages of a deep network architecture and the generalization ability of a Gaussian Process (GP)) or a Spectral Mixture Kernel (due to its ability to fit periodic data well). The points at the ends of the characteristic sections are intuitively the change points and it would be an interesting exercise to correlate those change points with physical events. 
+\subsubsection{IBP Kernel Learning (Completion by 11/21)}
+After clustering data into characteristic segments, we will cluster each characteristic segment to kernels via the IBP. This second clustering process will find different compositions of kernels for the characteristic segments. The advantage of IBP interpretability from the compositions of kernels. For example, one seasonal segment would be assigned to both periodic and RBF kernel functions. Then, hyperparameters for the composition of kernels will be found by maximizing the marginal likelihood. We will also explore using DKL as another approach to finding the kernel functions of characteristic segments.
+\subsection{Online Inference (Completion by 11/27)}
+As data is observed online it is either clustered with an existing characteristic segment which limits the number of new parameters introduced, or a new cluster is formed. New clusters, which form new characteristic segments, are formed when the posterior of the new data belonging to an existing characteristic segment falls below a predefined threshold.
+  
+\section{Midterm Milestone}
+We plan to have our algorithm fine-tuned for offline training and also be able to perform short term online inference. We will have developed the IBP process to be able to learn compositions of kernels from the DPGP clusters of characteristic segments. Relevant feedback from the midterm evaluations will be considered.
+
+\section{Evaluation}
+We provide criteria of what we would consider a perfect project and the minimum we expect to accomplish for the project to be considered a success.
+\subsection{Perfect Project}
+Be able to cluster characteristic segments of time-series data with DPGP and use IBP to find compositions of kernels describing the characteristic segments. We will have integrated DKL into the clustering algorithm for its flexibility to model variable data. Our generative model will be able to perform accurate long term online inference by exploiting the learned kernels of characteristic segments. The model will be scalable to large datasets.
+\subsection{Minimum}
+Develop a novel algorithm to find characteristic segments of time-series data with DPGP and use IBP to find compositions of kernels for the characteristic segments. Perform short-term online inference. This algorithm will be able to capture characteristic segments from synthetic data.
+
+\section{What Each Person Will Do}
+\textbf{Chawannut} will develop a model that uses the IBP to learn compositions of kernels for each characteristic segment. He will also implement approximation techniques for the scalability of the model with \textbf{Yutao}. \textbf{Serena} will develop the online inference section of the model and prepare the dataset. She will also investigate a DKL approach to discover expressive kernel functions for characteristic segments. \textbf{Yutao} will develop an algorithm that uses DPGP to cluster the time-series data into characteristic segments and potentially identify distributions over change points. 
+
+\section{Proposed Dataset}
+We propose to use Bitcoin market price data which is publicly available \cite{Bitcoin}. The data has clear characteristic segments and intuitive change points. The data dates back to 2014 with the resolution of daily ticks. We will also use synthetic data as a baseline.
+
+\bibliography{example_paper}
+\bibliographystyle{icml2016}
+
+\end{document} 
+
+
+% This document was modified from the file originally made available by
+% Pat Langley and Andrea Danyluk for ICML-2K. This version was
+% created by Lise Getoor and Tobias Scheffer, it was slightly modified  
+% from the 2010 version by Thorsten Joachims & Johannes Fuernkranz, 
+% slightly modified from the 2009 version by Kiri Wagstaff and 
+% Sam Roweis's 2008 version, which is slightly modified from 
+% Prasad Tadepalli's 2007 version which is a lightly 
+% changed version of the previous year's version by Andrew Moore, 
+% which was in turn edited from those of Kristian Kersting and 
+% Codrina Lauth. Alex Smola contributed to the algorithmic style files.  
