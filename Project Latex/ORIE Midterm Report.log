@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.9.8)  20 NOV 2017 12:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.11.8)  21 NOV 2017 09:19
 entering extended mode
 **"./ORIE Midterm Report.tex"
 ("ORIE Midterm Report.tex"
@@ -416,6 +416,22 @@ Underfull \hbox (badness 1558) in paragraph at lines 79--80
  []
 
 
+Package natbib Warning: Citation `FastNonP' on page 1 undefined on input line 9
+3.
+
+
+Package natbib Warning: Citation `StructDiscNonPara' on page 1 undefined on inp
+ut line 93.
+
+
+Package natbib Warning: Citation `DPGPwithConstraints' on page 1 undefined on i
+nput line 93.
+
+
+Package natbib Warning: Citation `GPChangePointModels' on page 1 undefined on i
+nput line 93.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
@@ -423,7 +439,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-<AlgFlow.png, id=30, 286.06876pt x 217.5628pt>
+
+Package natbib Warning: Citation `IBPGP' on page 2 undefined on input line 95.
+
+
+Package natbib Warning: Citation `KISS-GP' on page 2 undefined on input line 97
+.
+
+<AlgFlow.png, id=14, 286.06876pt x 217.5628pt>
 File: AlgFlow.png Graphic file (type png)
  <use AlgFlow.png>
 Package pdftex.def Info: AlgFlow.png used on input line 107.
@@ -431,27 +454,34 @@ Package pdftex.def Info: AlgFlow.png used on input line 107.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [2 <./AlgFlow.png>] ("ORIE Midterm Report.bbl" [3])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 221.
- [4
+ [2 <./AlgFlow.png>] [3] ("ORIE Midterm Report.bbl"
+
+Package natbib Warning: Empty `thebibliography' environment on input line 8.
+
+)
+
+Package natbib Warning: There were undefined citations.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 225.
+[4
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 221.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 225.
  ("ORIE Midterm Report.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 221.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 221.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 225.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 225.
 Package rerunfilecheck Info: File `"ORIE Midterm Report".out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 221.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 225.
  ) 
 Here is how much of TeX's memory you used:
- 6835 strings out of 493323
- 96905 string characters out of 3139067
- 198771 words of memory out of 3000000
- 10267 multiletter control sequences out of 15000+200000
- 22530 words of font info for 40 fonts, out of 3000000 for 9000
+ 6816 strings out of 493323
+ 96510 string characters out of 3139063
+ 198430 words of memory out of 3000000
+ 10254 multiletter control sequences out of 15000+200000
+ 20846 words of font info for 38 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,11n,45p,1708b,430s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 28i,11n,45p,1708b,332s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
@@ -464,8 +494,9 @@ Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiK
 TeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
 e1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr
 8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "ORIE Midterm Report.pdf" (4 pages, 173714 bytes).
+Output written on "ORIE Midterm Report.pdf" (4 pages, 166887 bytes).
 PDF statistics:
- 113 PDF objects out of 1000 (max. 8388607)
- 22 named destinations out of 1000 (max. 500000)
+ 93 PDF objects out of 1000 (max. 8388607)
+ 17 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
+

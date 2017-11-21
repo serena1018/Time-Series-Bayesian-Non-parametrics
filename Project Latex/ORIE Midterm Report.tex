@@ -211,7 +211,11 @@ After the new points are assigned to a cluster, the hyperparameters of the SM ke
 
 The SM kernel also allows the model to perform short-term extrapolation of data by assuming the extrapolated points will belong the most recently assigned cluster. Naturally, this method is only accurate for short term extrapolation due to the non-stationary nature of time-series data.
 
-\section{Experimental Results}
+\section{Experiments}
+
+\subsection{Dataset}
+The time-series datasets we test our methods on:
+\paragraph{BitCoin:} The dataset is downloaded from the Bitcoin Historical Data dataset on Kaggle. The orginal file contains Bitcoin data at 1-min intervals from select exchanges from January 2012 to October 2017. We run the experiments using the most recent 900 data points, considering before that the volume is relatively low and the trend is trivial (upward). Among those 900 data points, the most recent 100 is set as the testing points and the most recent 200 points after that is set as the validation points. 
 
 \section{Discussion}
 
