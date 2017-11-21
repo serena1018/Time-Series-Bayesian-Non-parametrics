@@ -94,7 +94,7 @@ Previous work has modeled time-series data using purely non-parametric models \c
 
 The Indian Buffet Process (IBP) is a non-parametric model that can discover latent features in data and is most commonly used in clustering problems (for example, clustering images based on latent features). The IBP allows for each individual data point to be assigned multiple latent features which allows for more flexibility than traditional clustering approaches. There has been application of the IBP to clustering multiple time-series trajectories and learn compositions of GP kernels describing the clusters \cite{IBPGP}. However, this approach uses predefined kernels (such as the RBF or periodic kernels) and the compositions of kernels are limited to summation. A general kernel function that can learn complex patterns and provide interpretable results is desired. [Ref] developed a powerful Spectral Mixture (SM) kernel for GP regression which can theoretically can model any stationary kernel. The SM kernel has shown promising results in learning complex patterns and in performing accurate extrapolation. In addition, the SM kernel allows for direct analysis of the spectral density of the kernel which facilitates interpretability of the kernel.
 
-The non-parametric nature of the IBP means it can quickly become intractable given the complexity of the data. [Ref] performs fast inference with the IBP by using a mean varitional method. Modeling with GPs can also cause scalability problems due to the complexity of inverting the kernel matrix; the community has developed approximation methods that exploit kernel matrix structure for fast inference \cite{KISS-GP}.
+Modeling with GPs can also cause scalability problems due to the complexity of inverting the kernel matrix; the community has developed approximation methods that exploit kernel matrix structure for fast inference \cite{KISS-GP}.
 
 \section{Methodology}
 
@@ -119,7 +119,7 @@ X^{nxd}=Z^{nxk}A^{kxd}+\epsilon^{nxd}
 \eqno{(1)}
 $$
 
-In order to do inference, we first need a prior over the binary matrix $Z$. The IBP is a non-parametric model which gives a prior over binary matrix $Z$ where $z_{ij} = 1$ if object $i$ possess latent feature $j$ and $z_{ij} =  0$ otherwise, where $\textrm{objects}=\{1,...i,...n\}$ and $\textrm{features}=\{1,...j,...k\}$. [Ref] derives the closed form of the IBP process [eq]?. There are two equivalent ways to generate samples from the IBP process. 
+In order to do inference, we first need a prior over the binary matrix $Z$. The IBP is a non-parametric model which gives a prior over binary matrix $Z$ where $z_{ij} = 1$ if object $i$ possess latent feature $j$ and $z_{ij} =  0$ otherwise, where $\textrm{objects}=\{1,...i,...n\}$ and $\textrm{features}=\{1,...j,...k\}$. [Ref] derives the closed form of the IBP process.One way to generate samples from IBP process is to use a culinary metaphor where N customers enter the restaurant and the first customer choose $k\sim$ Poisson $(\alpha)$ dishes.The next customers choose current active dishes with probability $\frac{m_{K}}{i}$ where $m_{K}$ is the number of prior customers choosing the dish.Also, Poisson($\frac{\alpha}{i}$) new dishes will be sampled for each customer. 
 
 Traditional clustering methods assign one data point to one cluster while IBP does not have such a  constraint. Another drawback of traditional clustering methods is that the number of clusters $k$ needs to be predefined. However, in the IBP $k$ is not fixed and can grow overtime as we have more data is observed. Figure \ref{IBPcomp} shows how can we interpret the process of assigning data to clusters in terms of $Z$. The left of figure \ref{IBPcomp} represents traditional clustering methods where each object (row) can only belong to one cluster (column) while the right of figure \ref{IBPcomp} shows the IBP binary feature matrix $Z$ where each object can belong to multiple clusters.
 
@@ -139,9 +139,7 @@ $$
 p(z_{ij}=1|\textbf{z}_{-i,j})=\frac{n_{-i,j}}{N}
 $$
 
-Where $\textbf{z}_{-i,j}$ is the feature assignments of all the other objects, $n_{-i,j}$ is the total number of other object that possess latent feature $j$ and $N$ is the total number of objects. Metropolis-Hastings is then used to find $\sigma_x$ and $\sigma_a$ which is computationally expensive because....
-
-[Ref] provides a fast implementation of IBP by using a mean variational method. Parameter restarts are also introduced to avoid bad initialization. Based on our empirical studies, this implementation is significantly faster than the [ref]. (Add more about mean variational method)
+Where $\textbf{z}_{-i,j}$ is the feature assignments of all the other objects, $n_{-i,j}$ is the total number of other object that possess latent feature $j$ and $N$ is the total number of objects. Metropolis-Hastings is then used to find $\sigma_x$ and $\sigma_a$
 
 \subsection{Spectral Mixture (SM) Kernel Learning}
 
@@ -234,27 +232,18 @@ The SM kernel also allows the model to perform short-term extrapolation of data 
 
 \subsection{IBP Clustering}
 
-We tested the algorithm with a motorcycle crash data set commonly used for non-stationary data [Ref]. Figure \ref{IBPClust} shows the result of IBP inference with latent features for each data point that determine clusters of the data. The IBP can discover the number of clusters in a probabilistic manner and discovers latent features which could help with clustering. There are two issues at the current stage of the experiments. First, the data only has one dimensional inputs which is not ideal for the IBP (why?). Second, the posterior of $Z$ is the mean of the entire Monte Carlo Markov Chain (MCMC) which still requires heuristics to assign data points to clusters. Figure \ref{IBPClust} shows results from the clustering with the IBP and clustering with fuzzy C-means [ref]. For future experiments, we plan to use the IBP as a prior for another clustering algorithm.
+We tested the algorithm with a Well Log data which is commonly used for non-stationary and change point detection [Ref]. Figure \ref{IBPClust} shows the result of IBP inference with Gibbs sampling for each data point. This process can discover the number of clusters in a probabilistic manner and discovers latent features which could help with clustering. The result from the experiment correctly cluster the data points as we expected.However,there are two issues at the current stage of the experiments. First, the data only has one dimensional input which is not ideal for the IBP which perform well given high dimensional inputs. Second, the posterior of $Z$ is the mean of the entire Monte Carlo Markov Chain (MCMC) which still requires some heuristic rules when assigning data points to clusters.For future experiments, we plan to use IBP as a prior for another clustering algorithm in order to determine the number of clusters automatically, and also help reducing heuristic procedure in the algorithm. 
 
 \begin{figure}[ht]
 \vskip 0.2in
 \begin{center}
 \centerline{\includegraphics[width=\columnwidth]{IBPClust}}
-\caption{Comparison of traditional clustering methods with the IBP. (Left) Traditional clustering where each data point (row) can only belong to one cluster (column). (Right) In the IBP, each data point can belong to multiple clusters.}
+\caption{The clustering result from IBP with Gibbs sampling}
 \label{IBPClust}
 \end{center}
 \vskip -0.2in
 \end{figure} 
 
-\begin{figure}[ht]
-\vskip 0.2in
-\begin{center}
-\centerline{\includegraphics[width=\columnwidth]{IBPClust}}
-\caption{THIS FIGURE FOR SPACING. Comparison of traditional clustering methods with the IBP. (Left) Traditional clustering where each data point (row) can only belong to one cluster (column). (Right) In the IBP, each data point can belong to multiple clusters.}
-\label{IBPClust}
-\end{center}
-\vskip -0.2in
-\end{figure} 
 
 \subsection{Kernel Learning and Chi-squared Testing}
 
