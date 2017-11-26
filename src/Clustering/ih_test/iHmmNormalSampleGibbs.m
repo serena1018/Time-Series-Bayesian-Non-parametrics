@@ -35,6 +35,7 @@ sample.K = max(S0);
 
 % Setup structures to store the output.
 S = {};
+
 stats.K = zeros(1,(numb + (nums-1)*numi));
 stats.alpha0 = zeros(1,(numb + (nums-1)*numi));
 stats.gamma = zeros(1,(numb + (nums-1)*numi));

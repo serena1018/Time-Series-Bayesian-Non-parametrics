@@ -16,7 +16,7 @@ pi = [1.0; zeros(K-1,1)];
 
 % Generate data.
 [Y, STrue] = HmmGenerateData(1, T, pi, A, E, 'normal');
-
+Y = Y'
 % Sample states using the iHmm Gibbs sampler.
 tic
 hypers.alpha0_a = 4;
@@ -27,7 +27,7 @@ hypers.sigma2 = 1.5;
 hypers.mu_0 = 0.0;
 hypers.sigma2_0 = 1.0;
 tic
-[S, stats] = iHmmNormalSampleBeam(Y, hypers, 500, 1, 1, ceil(rand(1,T) * 10));
+[S, stats] = iHmmNormalSampleBeam(Y, hypers, 1000, 1, 1, ceil(rand(1,T) * 10));
 toc
 
 figure(2)
