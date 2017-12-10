@@ -1,0 +1,64 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{GPML}
+\citation{FastNonP}
+\citation{StructDiscNonPara}
+\citation{DPGPwithConstraints}
+\citation{GPChangePointModels}
+\citation{IBPshort}
+\citation{IBPGP}
+\citation{SMK}
+\citation{BeamiHMM}
+\citation{KISS-GP}
+\newlabel{AlgFlow2}{{1}{2}{Algorithmic flow of the proposed time-series model. In offline training (light blue) (I) the number of clusters are automatically discovered and (II) the cluster patterns are learned with GP regression with a SM kernel function. (III) In online inference (black) the model performs chi-squared goodness of fit tests to cluster new data and then re-learns kernel hyperparameters for the cluster}{figure.1}{}}
+\citation{IBPlong}
+\citation{IBPlong}
+\citation{BeamiHMM}
+\newlabel{IBPcomp}{{2}{3}{Comparison of traditional clustering methods with the IBP. (Left) Traditional clustering where each data point (row) can only belong to one cluster (column). (Right) In the IBP, each data point can belong to multiple clusters. The black cells represent the clusters that the object belong to. For time-series data, each data point is an object that can belong to clusters}{figure.2}{}}
+\citation{iHMMBeal}
+\citation{GPML}
+\citation{SMK}
+\citation{SMK}
+\newlabel{iHMM}{{3}{4}{A schematic of the iHMM. The observed states are $y_{i}$ and the latent states are $x_{i}$. The sequence of observed states $y_{i}$ are used to infer the sequence of latent state transitions of $x_{i}$. In an iHMM the number of latent states are generalized to infinity}{figure.3}{}}
+\citation{BarSha}
+\citation{KISS-GP}
+\citation{WellLog}
+\citation{KaggleBit}
+\newlabel{OFClust}{{4}{6}{Comparison of clustering methods for Well Log data. \textbf {\ref {OFClust}(a)}: Raw Well Log data. \textbf {\ref {OFClust}(b)}: Hand labeled ground truth. \textbf {\ref {OFClust}(c)}: Clustering result with the IBP and GP gibbs sampling. There are some incorrectly clustered points scattered around the data. \textbf {\ref {OFClust}(d)}: Clustering result with the iHMM. Almost all of the points are clustered correctly. \textbf {\ref {OFClust}(e)}: Clustering result with K-means. Some points are incorrectly clustered due to clustering only based on geometry. All methods had 3 clusters shown in red, green, and blue respectively}{figure.4}{}}
+\citation{KISS-GP}
+\newlabel{BTCClust}{{5}{7}{\textbf {\ref {BTCClust}(a)}: Raw Bitcoin data. \textbf {\ref {BTCClust}(b)}: Clustering results with the iHMM. Three clusters were found and are shown in red, green, and blue}{figure.5}{}}
+\newlabel{OIClust}{{6}{7}{Online inference experimental comparison between RBF and SM kernels. \textbf {\ref {OIClust}(a)}: Full raw Well Log data. The black line indicates the cutoff of the training data. Data points to the left of the black line are used for training and data points to the right and used to test online inference. \textbf {\ref {OIClust}(b)}: Offline clustering with the iHMM. Four clusters are found and shown in red, green, blue, and purple. \textbf {\ref {OIClust}(c)}: Online inference results with the RBF kernel. \textbf {\ref {OIClust}(d)}: Online inference results with the SM kernel}{figure.6}{}}
+\newlabel{OFACC}{{1}{7}{Comparison of offline clustering accuracy}{table.1}{}}
+\bibdata{ORIE_6741_Project}
+\bibcite{BarSha}{{1}{2001}{{Bar-Shalom et~al.}}{{Bar-Shalom, Li, and Kirubarajan}}}
+\bibcite{iHMMBeal}{{2}{2001}{{Beal et~al.}}{{Beal, Ghahramani, and Rasmussen}}}
+\bibcite{StructDiscNonPara}{{3}{2013}{{Duvenaud et~al.}}{{Duvenaud, Lloyd, Grosse, Tenenbaum, and Zoubin}}}
+\bibcite{BeamiHMM}{{4}{2008}{{Gael et~al.}}{{Gael, Saatci, Teh, and Ghahramani}}}
+\bibcite{IBPlong}{{5}{2011}{{Griffiths \& Ghahramani}}{{Griffiths and Ghahramani}}}
+\bibcite{FastNonP}{{6}{2014}{{Hensman et~al.}}{{Hensman, Rattray, and Lawrence}}}
+\bibcite{WellLog}{{7}{2017}{{Lavielle}}{{}}}
+\bibcite{GPML}{{8}{2006}{{Rasmussen \& Williams}}{{Rasmussen and Williams}}}
+\bibcite{DPGPwithConstraints}{{9}{2013}{{Ross \& Dy}}{{Ross and Dy}}}
+\bibcite{GPChangePointModels}{{10}{2010}{{Saatci et~al.}}{{Saatci, Turner, and Rasmussen}}}
+\bibcite{IBPGP}{{11}{2017}{{Tong \& Choi}}{{Tong and Choi}}}
+\bibcite{KaggleBit}{{12}{2017}{{Unknown}}{{}}}
+\bibcite{SMK}{{13}{2013}{{Wilson \& Adams}}{{Wilson and Adams}}}
+\bibcite{KISS-GP}{{14}{2015}{{Wilson \& Nickisch}}{{Wilson and Nickisch}}}
+\bibcite{IBPshort}{{15}{2012}{{Yildirim}}{{}}}
+\bibstyle{icml2016}

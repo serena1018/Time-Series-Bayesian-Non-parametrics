@@ -123,16 +123,81 @@
 }
 
 @Misc{Bitcoin,
+  author       = {Quandl},
   title        = {Bitcoin Exchange Rates},
   howpublished = {Quandl},
   year         = {2017},
 }
 
 @Article{SparseGPOnline,
-  author  = {Lehel Csató and Manfred Opper},
+  author  = {Lehel Csato and Manfred Opper},
   title   = {Sparse On-Line Gaussian Processes},
   journal = {Neural Computation},
   year    = {2002},
+}
+
+@InProceedings{IBPshort,
+  author = {Ilker Yildirim},
+  title  = {Bayesian Statistics: Indian Buffet Process},
+  year   = {2012},
+}
+
+@Article{SMK,
+  author  = {Andrew Gordon Wilson and Ryan Prescott Adams},
+  title   = {Gaussian Process Kernels for Pattern Discovery and Extrapolation},
+  journal = {JMLR},
+  year    = {2013},
+}
+
+@Article{IBPlong,
+  author  = {Thomas L.. Griffiths and Zoubin Ghahramani},
+  title   = {The Indian Buffet Process: An Introduction and Review},
+  journal = {JMLR},
+  year    = {2011},
+}
+
+@Book{GPML,
+  title     = {Gaussian Processes for Machine Learning},
+  publisher = {The MIT Press},
+  year      = {2006},
+  author    = {Carl Edward Rasmussen and Christopher K. I. Williams},
+}
+
+@Book{BarSha,
+  title     = {Estimation with Applications to Tracking and Navigation},
+  publisher = {John Wiley \& Sons, Inc.},
+  year      = {2001},
+  author    = {Yaakov Bar-Shalom and X. Rong Li and Thiagalingam Kirubarajan},
+}
+
+@Misc{WellLog,
+  author       = {Marc Lavielle},
+  title        = {Statistics in Action with R},
+  howpublished = {Online},
+  month        = {March},
+  year         = {2017},
+}
+
+@InProceedings{BeamiHMM,
+  author    = {Jurgen Van Gael and Yunus Saatci and Yee Whye Teh and Zoubin Ghahramani},
+  title     = {Beam Sampling for the Infinite Hidden Markov Model},
+  booktitle = {Proceedings of the 25th International Conference on Machine Learning},
+  year      = {2008},
+  publisher = {JMLR},
+}
+
+@InProceedings{iHMMBeal,
+  author    = {Matthew J. Beal and Zoubin Ghahramani and Carl Edward Rasmussen},
+  title     = {The Infinite Hidden Markov Model},
+  booktitle = {Advances in Neural Information Processing Systems 14},
+  year      = {2001},
+}
+
+@Misc{KaggleBit,
+  author       = {Unknown},
+  title        = {Bitcoin Historical Data},
+  howpublished = {Kaggle},
+  year         = {2017},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
