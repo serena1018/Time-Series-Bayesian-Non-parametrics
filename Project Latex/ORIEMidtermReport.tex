@@ -1,0 +1,276 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2016 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the following line _only_ if you're still using LaTeX 2.09.
+%\documentstyle[icml2016,epsf,natbib]{article}
+% If you rely on Latex2e packages, like most moden people use this:
+\documentclass{article}
+\usepackage{amsmath}
+% use Times
+\usepackage{times}
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure} 
+
+% For citations
+\usepackage{natbib}
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% As of 2011, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2016} with
+% \usepackage[nohyperref]{icml2016} above.
+\usepackage{hyperref}
+
+% Packages hyperref and algorithmic misbehave sometimes.  We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+%\newcommand{\ICML@appearing}{}
+% Employ the following version of the ``usepackage'' statement for
+% submitting the draft version of the paper for review.  This will set
+% the note in the first column to ``Under review.  Do not distribute.''
+%\usepackage[accepted]{icml2016} 
+
+% Employ this version of the ``usepackage'' statement after the paper has
+% been accepted, when creating the final version.  This will set the
+% note in the first column to ``Proceedings of the...''
+\usepackage[accepted]{icml2016}
+
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Predictive Model for Time-Series Data with Bayesian Non-parametrics}
+
+\begin{document} 
+
+\twocolumn[
+\icmltitle{Predictive Model for Time-Series Data with Bayesian Non-parametrics}
+
+\vspace{-.15in}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2016
+% package.
+\icmlauthor{Chawannut Prommin, cp626}{cp626@cornell.edu}
+%\icmladdress{cp626}
+\vspace{.05in}
+\icmlauthor{Serena Li, sl2327}{sl2327@cornell.edu}
+%\icmladdress{sl2327}
+\vspace{.05in}
+\icmlauthor{Yutao Han, yh675}{yh675@cornell.edu}
+%\icmladdress{yh675}
+\vspace{.05in}
+
+% You may provide any keywords that you 
+% find helpful for describing your paper; these are used to populate 
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{boring formatting information, machine learning, ICML}
+
+\vskip 0.3in
+]
+
+\begin{abstract} 
+We propose a novel model for time-series data using a Bayesian non-parametric framework. We discover patterns in the data through a non-parametric clustering process. The number of clusters is discovered using the Indian Buffet Process, which is a flexible non-parametric model that allows each individual data point to be assigned to multiple clusters, and then Gaussian Process regression is used for clustering. We also propose a framework for online inference of the time-series data. We consider the scalability of the model during online inference due to evaluation of the clusters rather than the entire dataset, and scalability of the model during training by using approximate methods to learn the parameters of the non-parametric model.
+\end{abstract} 
+\vspace{-.25in}
+
+\section{Introduction}
+
+Time-series data in several domains is highly volatile and difficult to model (for example, stock prices fluctuate wildly and are difficult to model accurately) due to their often non-stationary nature. Essentially, different locations in input space produce outputs described with variable functions. The distinct locations where functions that map inputs to outputs change are traditionally called change points. While difficult to model, there is significant motivation to learn patterns in time-series data for applications such as creating generative models of the stock market for financial gain or understanding seismic patterns for earthquake detection. 
+
+A predictive model that identifies latent features within the data can be a powerful tool for understanding the time-series. It is intuitive to model the non stationarity of time-series data by using clustering methods to segment the data into different patterns that correspond to the varying functions (with respect to input space) that model the outputs. Non-parametric models are good candidates to model time-series data because they allow the complexity of the model to grow as more data is observed, which is central to modeling the non-stationarity of the data. Furthermore, non-parametric models do not have the limitations of physics-based models that make assumptions about the data such as optimizing trajectory distance, which can constrain the model and produce unrealistic results. The class of non-parametric models using Kernel learning methods are ideal for modeling time-series data. Kernel learning uses kernel functions to learn the covariance, which determines the difference in outputs given the inputs, of the data in function space which allows for the flexibility of a non-parametric model, while also capturing uncertainty in a probabilistic manner. 
+
+Given a model of time-series data, the ability for online inference is desired. As more data is observed online, the model should be able to automatically update its parameters, cluster new data with existing patterns, and identify new patterns. The scalability of the model is a key point of concern as online learning needs to be done in real-time for practical applications. 
+
+\section{Related Work} 
+ 
+Previous work has modeled time-series data using purely non-parametric models \cite{FastNonP} and a combination of parametric and non-parametric models \cite{StructDiscNonPara}. Parametric models generally require less data to learn, but do not have the inherent flexibility of non-parametric models. Parametric models may be too heavily constrained to allow the model to increase in complexity given new observed data. Data-driven approaches have modeled time-series data with Gaussian Processes (GP) and Dirichlet Process Gaussian Process (DPGP) \cite{DPGPwithConstraints}. These approaches have had success in clustering multiple trajectories of time-series data, but do not identify clusters of points belonging to a pattern, which represent variable functions mapping inputs to outputs of a single time-series trajectory. Identification of latent patterns or features would potentially allow for higher accuracy during online inference by allowing for interpretation of latent features describing the nature of the non-stationarity in the time-series. Other popular approaches to modeling time-series data find change points with a run-length variable and models the variable functions between change points accordingly \cite{GPChangePointModels}. A drawback of this type of approach is that the prior over the distribution of change points is not appropriate for modeling real data and a more statistically rigorous approach is desired. Approaches that find change points can be rather manual and we would prefer to automatically discover variations in underlying functions describing the data.
+
+The Indian Buffet Process (IBP) is a non-parametric model that discovers latent features in data and is most commonly used in clustering problems (for example, clustering images based on latent features) \cite{IBPshort}. The IBP allows for each individual data point to be assigned multiple latent features which allows for more flexibility than traditional clustering approaches. There has been application of the IBP to clustering multiple time-series trajectories and learn compositions of GP kernels describing the clusters \cite{IBPGP}. However, this approach uses predefined kernels (such as the RBF or periodic kernels) and the compositions of kernels are limited to summation. A more general kernel function that can learn complex patterns and provide interpretable results is desired. \cite{SMK} developed a powerful Spectral Mixture (SM) kernel for GP regression which can theoretically can model any stationary kernel. The SM kernel has shown promising results in learning complex patterns and in performing accurate extrapolation. In addition, the SM kernel allows for direct analysis of the spectral density of the kernel, which facilitates interpretability of the model.
+
+Modeling with GPs can also cause scalability problems due to the complexity of inverting the kernel matrix; the community has developed approximation methods that exploit kernel matrix structure for fast inference \cite{KISS-GP}.
+
+\section{Methodology}
+
+\subsection{Contribution}
+Figure \ref{AlgFlow} shows the algorithmic flow of our model. We propose a non-parametric clustering process to cluster time-series data. Our model discovers the number of underlying patterns or clusters with the IBP and then uses GP regression with a SM kernel to cluster the data. The model also performs online inference by using a chi-squared goodness of fit test for clustering new data and updating model parameters.
+
+\begin{figure}[ht]
+\vskip 0.2in
+\begin{center}
+\centerline{\includegraphics[width=\columnwidth]{AlgFlow}}
+\caption{Algorithmic flow of the proposed time-series model. In offline training (light blue) the number of clusters is discovered with the IBP and the data is clustered with GP regression with a SM kernel. In online inference (black) the model performs chi-squared goodness of fit tests to cluster new data and then re-learns SM kernel hyperparameters for the cluster.}
+\label{AlgFlow}
+\end{center}
+\vskip -0.2in
+\end{figure} 
+
+\subsection{Indian Buffet Process (IBP) Discovery of Number of Clusters}
+Determining the number of clusters in a clustering problem is a difficult question to answer. We propose using the IBP to discover the number of clusters in a dataset. Finding the hidden structure of time-series data using latent feature modeling is the first step in our model. In short, given a data set $X$ with $n$ objects and $d$ dimensions, latent feature modeling aims to decompose $X$ to a binary feature matrix $Z$ with $n$ rows and $k$ columns, a weight matrix $A$ with $k$ rows and $d$ columns, and white noise $\epsilon$. One interpretation of each row of matrix $Z$ is whether each object possesses latent feature $k$ or not. 
+
+$$
+X^{nxd}=Z^{nxk}A^{kxd}+\epsilon^{nxd}
+\eqno{(1)}
+$$
+
+In order to do inference, we first need a prior over the binary matrix $Z$. The IBP is a non-parametric model which gives a prior over binary matrix $Z$ where $z_{ij} = 1$ if object $i$ possess latent feature $j$ and $z_{ij} =  0$ otherwise, where $\textrm{objects}=\{1,...i,...n\}$ and $\textrm{features}=\{1,...j,...k\}$. \cite{IBPlong} derives the closed form of the IBP process. A method generate samples from the IBP prior is to use a culinary metaphor where $N$ customers enter the restaurant and the first customer chooses $k_{1}\sim$ Poisson $(\alpha)$ dishes, where $\alpha$ is a hyperparameter. The $i^{th}$ customer chooses from the previously chosen dishes with probability $\frac{m_{K}}{i}$, where $m_{K}$ is the number of prior customers who have chosen that dish. Then, Poisson($\frac{\alpha}{i}$) new dishes will be sampled for the $i^{th}$ customer. 
+
+Traditional clustering methods assign one data point to one cluster while the IBP does not have such a constraint. Another drawback of traditional clustering methods is that the number of clusters $k$ needs to be predefined. However, in the IBP $k$ is not fixed and can grow overtime as we observe more data. Figure \ref{IBPcomp} shows how can we interpret the process of assigning data to clusters in terms of $Z$. The left of figure \ref{IBPcomp} represents traditional clustering methods where each object (row) can only belong to one cluster (column) while the right of figure \ref{IBPcomp} shows the IBP binary feature matrix $Z$ where each object can belong to multiple clusters.
+
+\begin{figure}[ht]
+\vskip 0.2in
+\begin{center}
+\centerline{\includegraphics[width=\columnwidth]{IBPcomp}}
+\caption{Comparison of traditional clustering methods with the IBP. (Left) Traditional clustering where each data point (row) can only belong to one cluster (column). (Right) In the IBP, each data point can belong to multiple clusters.}
+\label{IBPcomp}
+\end{center}
+\vskip -0.2in
+\end{figure} 
+
+The goal of inference in the IBP is to find the posterior of $Z$ given $X$ . The term $A$ is assumed to be from Gaussian distribution with variance $\sigma_{A}$ and $\epsilon$ is white noise with variance $\sigma_n$. The posterior $p(Z|X,\sigma_a,\sigma_x)$ is calculated using Bayes rule where the likelihood $p(X|Z,\sigma_a,\sigma_x)$ is Gaussian and the prior $p(Z)$ is drawn from the IBP. Inference is done via Gibbs sampling by calculating the conditional distribution of $Z$.
+
+$$
+p(z_{ij}=1|\textbf{z}_{-i,j})=\frac{n_{-i,j}}{N}
+\eqno{(2)}
+$$
+
+Where $\textbf{z}_{-i,j}$ is the feature assignments of all the other objects, $n_{-i,j}$ is the total number of other object that possess latent feature $j$ and $N$ is the total number of objects. Metropolis-Hastings is then used to find $\sigma_x$ and $\sigma_a$. We use the IBP to discover the number of clusters by using the number of latent features that are discovered. The number of clusters is set to expectation value of the posterior distribution.
+
+\subsection{Spectral Mixture (SM) Kernel Learning and Clustering}
+
+GP regression is used to cluster the data given $k$ from the IBP process. A GP learns correlations between the output functions of inputs for given data. The outputs are not assumed to take any functional form and are a normal random vector. The kernel function of the GP describes the covariance between the outputs which is roughly the divergence of the outputs given their inputs. The kernel function has hyperparameters which determine properties of the functions drawn from the GP such as length scale or frequency. We assume white measurement noise. The distribution of output functions is given below \cite{GPML}
+
+$$
+\begin{bmatrix} 
+y(x) \\
+y(x_{*}) 
+\end{bmatrix}
+=
+\begin{bmatrix} 
+K+\sigma_{n}^{2}I & K_{*} \\
+K_{*} & K_{**} 
+\end{bmatrix}
+\eqno(3)
+$$
+
+Where $x$ is the training input, $y(x)$ is the training output, $x_{*}$ is the input where we would like to predict the output $y(x_{*})$ with GP regression, $\sigma_{n}$ is the measurement noise hyperparameter, $K$ is the kernel function and describes the covariance points between the set of points $\{x,x\}$, $K_{*}$ is the covariance between $\{x_{*},x\}$, and $K_{**}$ is the covariance between $\{x_{*},x_{*}\}$. From now on $y(x)$ will be denoted as $y$, and $y(x_{*})$ will be denoted as $y^{*}$. With some linear algebra the marginal distribution of $y^{*}$ is derived as
+
+$$
+y^*\sim \mathcal{N}(K_{*}^{T}K^{-1}y,K_{**}-K_{*}^{T}K^{-1}K_{*})  \eqno{(4)}
+$$
+
+
+A stationary kernel function is one that only depends on the translation of the inputs. Generally, kernel functions are hand-crafted to fit specific problems and require significant human time to fine tune. An alternative kernel modeling method that automatically discovers an appropriate kernel is desired. The spectral density can be used to model the stationary kernel and by taking a mixture of gaussians in the spectral representation, any stationary kernel can be modeled \cite{SMK} . The inverse Fourier transform of the spectral representation is the SM kernel. The SM kernel function is defined as follows
+
+%$$
+%\phi(s;\mu,\sigma^{2})=\frac{1}{\sqrt{2\pi\sigma^{2}}}\textrm{exp}\{-\frac{1}{2\sigma^{2}}(s-\mu)^{2}\}
+%\eqno(1)
+%$$
+$$
+S(s)=\frac{1}{2}[\phi(s)+\phi(-s)]
+\eqno(5)
+$$
+%$$
+%K(\tau)=\textrm{exp}\{-2\pi^{2}\tau^{2}\sigma^{2}\}\textrm{cos}(2\pi\tau\mu)
+%\eqno(1)
+%$$
+$$
+K(\tau)=\sum_{q=1}^{Q}w_{q}\prod_{p=1}^{P}\textrm{exp}\{-2\pi^{2}\tau_{p}^{2}v_{q}^{(p)}\}\textrm{cos}(2\pi\tau_{p}\mu_{q}^{(p)})
+\eqno{(6)}
+$$
+Where $\phi(s)$ is a mixture of $Q$ Gaussians with the $q^{th}$ component having mean vector $\mu_{q}=\{\mu_{q}^{(1)},...\mu_{q}^{(P)}\}$ and diagonal covariance matrix with diagonal components $v_{q}=\{v_{q}^{(1)},...v_{q}^{(P)}\}$, $S(s)$ is the spectral density of the kernel function $K$, and $\tau_{p}$ is the $p^{th}$ component of the $P$ dimensional vector of translation in inputs \cite{SMK}. While the time-series data is non-stationary in nature, the underlying patterns are assumed to be stationary and can be appropriately modeled by the SM kernel. As $Q$ goes to infinity, any stationary kernel can be modeled by the SM kernel exactly. This is not feasible in practice, so a value of $Q$ that learns the data patterns reasonably well is empirically determined.
+
+We can learn the hyperparameters $\theta=\{w,\mu,v,\sigma_{n}\}$ of the kernel by maximizing the marginal likelihood of the data
+
+$$
+\textrm{log}\ p(y|\theta) \propto -y^{T}M^{-1}y -\textrm{log}\ |M|
+\eqno(7)
+$$
+$$
+M=K+\sigma_{n}^{2}I
+\eqno(8)
+$$
+
+The gradient of the log likelihood is used for optimization, and is written as
+$$
+\frac{\partial}{\partial\theta}\textrm{log}\ p(y|\theta)=\frac{1}{2}y^TM^{-1}\frac{\partial M}{\partial\theta}M^{-1}y
+$$
+$$
+-\frac{1}{2}\textrm{tr}(M^{-1}\frac{\partial M}{\partial\theta})
+\eqno{(9)}
+$$
+
+The hyperparameters of the kernel function essentially determine the inferred distribution over functions at $x_{*}$. It is naturally appropriate to continuously update $\theta$ as more data is learned for the GP to achieve the best possible fit. To cluster the data into $k$ clusters discovered by the IBP, we first randomly initialize the data into randomly into $k$ clusters. Then, gibbs sampling is used to find the posterior of the probability of each data point given $\theta$ of each cluster. The data point is then assigned to the cluster with the highest posterior. In practice, the clustering algorithm converges within five iterations.
+
+\subsection{Online Inference}
+
+In online inference, our model clusters new data observed online with existing patterns or generates new clusters for the new data. The model updates clusters kernel hyperparameters as new data is found, and is more scalable because hyperparameters are optimized over clusters rather than the entire dataset.
+
+When new data is observed online, the model first performs chi-squared goodness of fit tests on the observed data and each cluster learned during the model training. The model subsequently groups the online data into the cluster with the best "fit". If the data does not fit any existing clusters with a predefined level of confidence, then a new cluster is generated. The test statistic for the chi-squared test is defined below \cite{BarSha}
+
+$$
+	t_{\chi^{2}}^{n_{y}}=(y(x_{*})-y_{obs})^{T}P^{-1}(y(x_{*})-y_{obs})
+	\eqno{(10)}
+$$
+$$	
+	P=K_{**}+\sigma_{n}^{2}I
+	\eqno{(11)}
+	$$
+
+Where $y_{obs}$ is the observed output at the new input $x_{*}$, $y(x_{*})$ is the expected output at $x_{*}$ given the SM kernel, $K_{**}$ is the covariance at $x_{*}$ given the SM kernel, $\sigma_{n}$ is the noise hyperparameter, and ${n_{y}}$ is the dimension of $y_{obs}$. The test statistic $t_{\chi^{2}}^{n_{y}}$ is chi-squared distributed with ${n_{y}}$ degrees of freedom. If we are more than $90\%$ confident that $y_{obs}$ was generated by the learned distribution over a cluster from the training data with the SM kernel, then the new data is assigned to that cluster. If the new data is more than $90\%$ confident to belong to multiple clusters, then we assign the new data to the cluster with the highest confidence. If the new data cannot be assigned to any cluster with $90\%$ confidence then a new cluster is generated. 
+
+After the new points are assigned to a cluster, the hyperparameters of the SM kernel over the cluster are relearned through marginal likelihood. Rather than re-optimizing hyperparameters over the entire dataset, our model only optimizes over a subset of the data defined by the cluster, which makes the model scalable. However, huge datasets will eventually bottleneck when the clusters grow extremely large so approximation methods must be used \cite{KISS-GP}. We assign new data to clusters after a predetermined number $N_{new}$ of new data points are observed. If $N_{new}$ is too small, then the chi-squared test may not be representative and it will be computationally expensive to re-learn hyperparameters for each new set of clustered $N_{new}$ points. However, if $N_{new}$ is too large then the resolution may not be small enough to correctly cluster the new points. $N_{new}$ is empirically found in the model.
+
+The SM kernel also allows the model to perform short-term extrapolation of data by assuming the extrapolated points will belong the most recently assigned cluster. Naturally, this method is only accurate for short term extrapolation due to the non-stationary nature of time-series data.
+
+\section{Experimental Results}
+
+\subsection{Time-Series Clustering}
+
+We tested the algorithm with Well Log data which is commonly used for non-stationary time-series analysis and change point detection \cite{WellLog}. Figure \ref{IBPClust} shows the result of the clustering process using the IBP to discover $k$ and GP regression with gibbs sampling for clustering. The raw data is show at the top of figure \ref{IBPClust} and $k=3$ clusters found with GP regression shown in the bottom of figure \ref{IBPClust} in red, green, and blue. In our experiments so far we have used the Radial Basis Function kernel (RBF) but will use the SM kernel in future experiments to discover more expressive correlations in the data. This process can discover the number of clusters in a probabilistic manner and finds latent features which help with clustering. The result from the experiment correctly clusters the data points into intuitive patterns. However, the data only has one dimensional input which is not ideal for the IBP which is more suited to high dimensional inputs. 
+
+\begin{figure}[ht]
+\vskip 0.2in
+\begin{center}
+\centerline{\includegraphics[width=\columnwidth]{IBPClust}}
+\caption{The clustering result from IBP with Gibbs sampling. (Top) Unclustered Well Log data. (Bottom) Clustered data with red, green, and blue representing 3 different clusters.}
+\label{IBPClust}
+\end{center}
+\vskip -0.2in
+\end{figure} 
+
+
+\subsection{Kernel Learning and Chi-squared Testing}
+
+Our model will fit a SM Kernel over each of the clusters discovered by the IBP to learn the cluster patterns. Then, when new data is observed online, the new data will be clustered according to the online inference described in section 3.4. We also plan to compare the spectral density of the clusters from the SM kernel with the spectral density of new data as another potential method for assigning new data to clusters.
+
+\subsection{Evaluation of Model Accuracy}
+
+To measure the performance of model prediction, we plan to use root mean squared error (RMSE) on the test data to compare the proposed model to other modeling methods. We are still developing the online inference part of the model described in section 3.4. Once the online inference part of the algorithm has been developed, we can calculate the RMSE between data observed online and GP extrapolation of assigned clusters. The benchmark for the RMSE of this algorithm will be the RMSE from extrapolation of the test data without any IBP clustering. We expect our model will work well for modeling non-stationary data given the number of clusters by the IBP is reasonable. 
+
+\section{Discussion}
+
+We present a novel non-parametric time-series model that (1) discovers the number of clusters with the IBP, (2) learns patterns and correlations, and clusters the data using GP regression with a SM kernel, and (3) performs online inference through online clustering with a chi-squared test. Our experimental results so far are promising in IBP and GP clustering, with automatic discovery of the number of clusters and finding intuitive clusters. For future experiments we plan to validate the online inference section of the algorithm and improve the scalability of the modelling process.
+
+\bibliography{example_paper}
+\bibliographystyle{icml2016}
+
+\end{document} 
+
+
+% This document was modified from the file originally made available by
+% Pat Langley and Andrea Danyluk for ICML-2K. This version was
+% created by Lise Getoor and Tobias Scheffer, it was slightly modified  
+% from the 2010 version by Thorsten Joachims & Johannes Fuernkranz, 
+% slightly modified from the 2009 version by Kiri Wagstaff and 
+% Sam Roweis's 2008 version, which is slightly modified from 
+% Prasad Tadepalli's 2007 version which is a lightly 
+% changed version of the previous year's version by Andrew Moore, 
+% which was in turn edited from those of Kristian Kersting and 
+% Codrina Lauth. Alex Smola contributed to the algorithmic style files.  
