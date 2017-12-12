@@ -35,16 +35,17 @@
 \citation{GPML}
 \citation{SMK}
 \citation{SMK}
-\newlabel{iHMM}{{3}{4}{A schematic of the iHMM. The observed states are $y_{i}$ and the latent states are $x_{i}$. The sequence of observed states $y_{i}$ are used to infer the sequence of latent state transitions of $x_{i}$. In an iHMM the number of latent states are generalized to infinity}{figure.3}{}}
+\newlabel{iHMM2}{{3}{4}{A schematic of the iHMM. The observed states are $h_{i}$ and the latent states are $l_{i}$. The sequence of observed states $h_{i}$ are used to infer the sequence of latent state transitions of $l_{i}$. In an iHMM the number of latent states are generalized to infinity}{figure.3}{}}
 \citation{BarSha}
 \citation{KISS-GP}
+\citation{KISS-GP}
+\citation{KISS-GP}
+\citation{GPML}
 \citation{WellLog}
 \citation{KaggleBit}
-\newlabel{OFClust}{{4}{6}{Comparison of clustering methods for Well Log data. \textbf {\ref {OFClust}(a)}: Raw Well Log data. \textbf {\ref {OFClust}(b)}: Hand labeled ground truth. \textbf {\ref {OFClust}(c)}: Clustering result with the IBP and GP gibbs sampling. There are some incorrectly clustered points scattered around the data. \textbf {\ref {OFClust}(d)}: Clustering result with the iHMM. Almost all of the points are clustered correctly. \textbf {\ref {OFClust}(e)}: Clustering result with K-means. Some points are incorrectly clustered due to clustering only based on geometry. All methods had 3 clusters shown in red, green, and blue respectively}{figure.4}{}}
-\citation{KISS-GP}
-\newlabel{BTCClust}{{5}{7}{\textbf {\ref {BTCClust}(a)}: Raw Bitcoin data. \textbf {\ref {BTCClust}(b)}: Clustering results with the iHMM. Three clusters were found and are shown in red, green, and blue}{figure.5}{}}
-\newlabel{OIClust}{{6}{7}{Online inference experimental comparison between RBF and SM kernels. \textbf {\ref {OIClust}(a)}: Full raw Well Log data. The black line indicates the cutoff of the training data. Data points to the left of the black line are used for training and data points to the right and used to test online inference. \textbf {\ref {OIClust}(b)}: Offline clustering with the iHMM. Four clusters are found and shown in red, green, blue, and purple. \textbf {\ref {OIClust}(c)}: Online inference results with the RBF kernel. \textbf {\ref {OIClust}(d)}: Online inference results with the SM kernel}{figure.6}{}}
+\newlabel{OFClust}{{4}{6}{Comparison of clustering methods for Well Log data. \textbf {\ref {OFClust}(a)}: Raw Well Log data. \textbf {\ref {OFClust}(b)}: Hand labeled ground truth. \textbf {\ref {OFClust}(c)}: Clustering result with the IBP and GP gibbs sampling. There are some incorrectly clustered points scattered around the data. \textbf {\ref {OFClust}(d)}: Clustering result with the iHMM. Almost all of the points are clustered correctly. \textbf {\ref {OFClust}(e)}: Clustering result with K-means. Some points are incorrectly clustered due to clustering based only on geometry. All methods had 3 clusters shown in red, green, and blue}{figure.4}{}}
 \newlabel{OFACC}{{1}{7}{Comparison of offline clustering accuracy}{table.1}{}}
+\newlabel{BTCClust}{{5}{7}{\textbf {\ref {BTCClust}(a)}: Raw Bitcoin data. \textbf {\ref {BTCClust}(b)}: Clustering results with the iHMM. Three clusters were found and are shown in red, green, and blue}{figure.5}{}}
 \bibdata{ORIE_6741_Project}
 \bibcite{BarSha}{{1}{2001}{{Bar-Shalom et~al.}}{{Bar-Shalom, Li, and Kirubarajan}}}
 \bibcite{iHMMBeal}{{2}{2001}{{Beal et~al.}}{{Beal, Ghahramani, and Rasmussen}}}
@@ -62,3 +63,4 @@
 \bibcite{KISS-GP}{{14}{2015}{{Wilson \& Nickisch}}{{Wilson and Nickisch}}}
 \bibcite{IBPshort}{{15}{2012}{{Yildirim}}{{}}}
 \bibstyle{icml2016}
+\newlabel{OIClust}{{6}{8}{Online inference experimental comparison between RBF and SM kernels. \textbf {\ref {OIClust}(a)}: Full raw Well Log data. The black line indicates the cutoff of the training data. Data points to the left of the black line are used for training and data points to the right are used to test online inference. \textbf {\ref {OIClust}(b)}: Offline clustering with the iHMM. Four clusters were found and shown in red, green, blue, and purple. \textbf {\ref {OIClust}(c)}: Online inference results with the RBF kernel. \textbf {\ref {OIClust}(d)}: Online inference results with the SM kernel}{figure.6}{}}
