@@ -76,7 +76,7 @@
 ]
 
 \begin{abstract} 
-We propose a novel Bayesian non-parametric framework for time-series data modeling with pattern discovery and online inference. We experiment with using the Indian Buffet Process and the infinite Hidden Markov Model for automatic pattern or cluster discovery. Our model then uses a novel framework for online inference of the time-series data using Gaussian Process regression with a Spectral Mixture kernel function and hypothesis testing. We also implement approximate inference for Gaussian Processes to make our model more scalable and allow for online parameter updates.
+We propose a novel Bayesian non-parametric framework for time-series data modeling with pattern discovery and online inference. We experiment with using the Indian Buffet Process and the Infinite Hidden Markov Model for automatic pattern or cluster discovery. Our model then uses a novel framework for online inference of the time-series data using Gaussian Process regression with the Spectral Mixture kernel function and hypothesis testing. We also implement approximate inference for Gaussian Processes to make our model more scalable and allow for online parameter updates with the structured kernel interpolation framework.
 \end{abstract} 
 \vspace{-.25in}
 
@@ -96,7 +96,7 @@ The Indian Buffet Process (IBP) is a non-parametric model that discovers latent 
 
 In addition to the IBP, the infinite Hidden Markov Model (iHMM) has been used to cluster time-series data into segments representing variable functions between change points \cite{BeamiHMM}. The iHMM allows a prior over an infinite number of clusters and automatically discovers the number of clusters. While the iHMM is able discover clusters in time-series data and transition probabilities between the clusters, it does not learn the underlying patterns in the data and is too computationally expensive for online inference due to the need to perform inference over the entire dataset. The ability to discover the parameters of underlying patterns in the clusters and perform online inference is desired.
 
-Modeling with GPs can also cause scalability problems due to the complexity of inverting the kernel matrix; the community has developed approximation methods that exploit kernel matrix structure for fast inference \cite{KISS-GP}.
+Modeling with GPs can also cause scalability problems due to the complexity of inverting the kernel matrix especially in online settings; the community has developed approximation methods that exploit kernel matrix structure for fast inference under structured kernel interpolation framworks \cite{KISS-GP}, and achieved extraordinary results. 
 
 %\vspace{-.119in}
 
@@ -108,7 +108,7 @@ Figure \ref{AlgFlow2} shows the algorithmic flow of our proposed model. Our inno
 \begin{figure}[ht]
 \vskip 0.2in
 \begin{center}
-\centerline{\includegraphics[width=\columnwidth]{AlgFlow2}}
+\centerline{\includegraphics[width=60mm]{AlgFlow2}}
 \caption{Algorithmic flow of the proposed time-series model. In offline training (light blue) (I) the number of clusters are automatically discovered and (II) the cluster patterns are learned with GP regression with a SM kernel function. (III) In online inference (black) the model performs chi-squared goodness of fit tests to cluster new data and then re-learns kernel hyperparameters for the cluster.}
 \label{AlgFlow2}
 \end{center}
@@ -159,7 +159,7 @@ The number of hidden states (which represents the number of clusters in the time
 \begin{figure}[ht]
 \vskip 0.2in
 \begin{center}
-\centerline{\includegraphics[width=\columnwidth]{iHMM2}}
+\centerline{\includegraphics[width=70mm]{iHMM2}}
 \caption{A schematic of the iHMM. The observed states are $h_{i}$ and the latent states are $l_{i}$. The sequence of observed states $h_{i}$ are used to infer the sequence of latent state transitions of $l_{i}$. In an iHMM the number of latent states are generalized to infinity.}
 \label{iHMM2}
 \end{center}
@@ -168,7 +168,7 @@ The number of hidden states (which represents the number of clusters in the time
 
 \subsection{Spectral Mixture (SM) Kernel Learning}
 
- A GP learns correlations between the output functions of inputs for given data. The outputs are not assumed to take any functional form and are a normal random vector. The kernel function of the GP describes the covariance between the outputs which is roughly the divergence of the outputs given their inputs. The kernel function has hyperparameters which determine properties of the functions drawn from the GP such as length scale or frequency. We assume white measurement noise. The distribution of output functions is given below \cite{GPML}
+ A GP learns correlations between the output functions of inputs for given data. The outputs are not assumed to take any functional form and are a normal random vector. The kernel function of the GP describes the covariance between the outputs which is roughly the divergence of the outputs given their inputs. The kernel function has hyperparameters which determine properties of the functions drawn from the GP such as length scale or frequency. We assume that white measurement noise occurs. The distribution of output functions is given below \cite{GPML}
 
 $$
 \begin{bmatrix} 
@@ -250,7 +250,7 @@ In the second approach for offline training described in section 3.1, the iHMM a
 
 \subsection{Online Inference}
 
-In online inference, our model clusters new data observed online with existing patterns. The model updates clusters kernel hyperparameters as new data is found, and is more scalable because kernel hyperparameters are optimized over clusters rather than the entire dataset.
+In online inference, our model clusters new data observed online to existing patterns. The model updates clusters kernel hyperparameters as new data is found, and it is more scalable because kernel hyperparameters are optimized over clusters rather than the entire dataset.
 
 When new data is observed online, the model first performs chi-squared goodness of fit tests on the observed data and each cluster found during the offline model training. The model subsequently groups the online data into the cluster with the best "fit". The test statistic for the chi-squared test is defined below \cite{BarSha}
 
@@ -265,26 +265,27 @@ $$
 
 Where $y_{obs}$ is the observed output at the new input $x^{*}$, $y^{*}$ is the expected output at $x^{*}$ given the SM kernel, $K_{**}$ is the covariance at $x^{*}$ given the SM kernel, $\sigma_{n}$ is the noise hyperparameter, and ${n_{y}}$ is the dimension of $y_{obs}$. The test statistic $t_{\chi^{2}}^{n_{y}}$ is chi-squared distributed with ${n_{y}}$ degrees of freedom. We assign the new data to the cluster with the highest confidence. In other words, for each cluster we find a level of confidence with hypothesis testing (using GP parameters) that the new data belongs to that cluster and assign the new data to the cluster with the highest level of confidence.
 
-After the new points are assigned to a cluster, the hyperparameters of the SM kernel over the cluster are relearned through marginal likelihood. Rather than re-optimizing hyperparameters over the entire dataset, our model only optimizes over a subset of the data defined by the cluster, which makes the model scalable. However, huge datasets will eventually bottleneck when the clusters grow extremely large so approximation methods must be used \cite{KISS-GP}. We assign new data to clusters after a predetermined number $N_{new}$ of new data points are observed. If $N_{new}$ is too small, then the chi-squared test may not be representative and it will be computationally expensive to re-learn hyperparameters for each new set of clustered $N_{new}$ points. However, if $N_{new}$ is too large then the resolution may not be small enough to correctly cluster the new points. $N_{new}$ is empirically found in the model.
+After the new points are assigned to a cluster, the hyperparameters of the SM kernel over the cluster are relearned through marginal likelihood. Rather than re-optimizing hyperparameters over the entire dataset, our model only optimizes over a subset of the data defined by the cluster, which makes the model scalable. However, huge datasets will eventually bottleneck when the clusters grow extremely large so approximation methods must be used \cite{KISS-GP}. We assign new data to clusters after a predetermined number $N_{new}$ of new data points are observed. If $N_{new}$ is too small, then the chi-squared test may not be representative and it will be computationally expensive to re-learn hyperparameters for each new set of clustered $N_{new}$ points. However, if $N_{new}$ is too large then the resolution may not be small enough to correctly cluster the new points. $N_{new}$ can be set considering as a combination of the computational power the application has in house and how frequent we want to make predictions. 
+
 
 The SM kernel also allows the model to perform short-term extrapolation of data by assuming the extrapolated points will belong the most recently assigned cluster. Naturally, this method is only accurate for short term extrapolation due to the non-stationary nature of time-series data.
 
 \subsection{Fast Inference}
 
-The most computationally expensive part of our model is the GP regression. This complexity is due to inversion of the kernel matrix $K$ which has complexity $O(n^3)$ where $n$ is the dimension of the data. As the number of data points increases, GP regression quickly becomes intractable. \cite{KISS-GP} proposes to make GP's more scalable by using structured kernel interpolation (SKI) which combines point inducing methods, kronecker fast inference methods, toeplitz methods, along with local interpolation to reduce the complexity of GP regression to $O(n+g(m))$ where $m$ is the number of inducing points and $g(m) \sim m$. The main innovation of KISS-GP is approximating a user defined kernel matrix $K$ as
+The most computationally expensive part of our model is the GP regression. This complexity is due to inversion of the kernel matrix $K$ which has complexity $O(n^3)$ where $n$ is the dimension of the data. As the number of data points increases, GP regression quickly becomes intractable. In order to further speed up the inference phase, we utilized structured kernel interpolation (SKI) framework inducing point methods for scalable GPs especially Kernel Interpolation for Scalable Structured Gaussian Processes (KISS-GP) \cite{KISS-GP}. To create a sparse approximation to the covariance matrix between the inducing points and original training points, it use local cubic kernel and inverse distance weighting interpolation, kronecker fast inference methods, and toeplitz methods, reducing the complexity of GP regression to $O(n+g(m))$ where $m$ is the number of inducing points and $g(m) \sim m$. The main innovation of KISS-GP is approximating a user defined kernel matrix $K$ as
 
 $$
 K=WK_{U,U}W^{T}
 \eqno{(13)}
 $$
 
-Where $W$ is a sparse interpolation matrix and $K_{U,U}$ is the covariance of the inducing points $U$, which are arranged with an exploitable structure. We implement KISS-GP to make GP training faster and online parameter updates feasible. For a more detailed description of KISS-GP, we refer the reader to \cite{KISS-GP}.
+Where $W$ is a sparse interpolation matrix and $K_{U,U}$ is the covariance of the inducing points $U$, which are arranged with an exploitable structure. We implement KISS-GP to make GP training faster and online parameter updates feasible. For a more detailed description of KISS-GP, we refer the readers to \cite{KISS-GP}.
 
 \section{Experimental Results}
 
 \subsection{Code Libraries Used}
 
-We used the MATLAB library by Carl Edward Rasmussen written to demonstrate algorithms from \cite{GPML} along with code taken from Andrew Gordon Wilson's website (https://people.orie.cornell.edu/andrew/) for implementation of GP regression. For implementation of the iHMM we borrowed MATLAB code from Jurgen Van Gael's (https://github.com/tmills/ihmm) iHMM library. For implementation of KISS-GP we borrowed code from the Python library GPyTorch (https://github.com/jrg365/gpytorch).
+We used the MATLAB library by Carl Edward Rasmussen written to demonstrate algorithms from \cite{GPML} along with code taken from Andrew Gordon Wilson's website (https://people.orie.cornell.edu/andrew/) for implementation of GP regression. For implementation of the iHMM we borrowed MATLAB code from Jurgen Van Gael's (https://github.com/tmills/ihmm) iHMM library. For implementation of KISS-GP, we utilized the under developing GPyTorch package from Cornell University (https://github.com/jrg365/gpytorch), which is an implementation of Gaussian Processes in Pytorch.
 
 \subsection{Time-Series Clustering}
 
@@ -302,9 +303,9 @@ Figure \ref{OFClust} shows the experimental results of offline training. Figure 
 \vskip -0.2in
 \end{figure} 
 
-We decided to use the iHMM approach to offline clustering for online inference experiments based on its superior performance in the experiments described in this section. 
+We decide to use the iHMM approach to offline clustering for online inference experiments based on its superior performance in the experiments described in this section. 
 
-In addition to the Well Log data we also attempted to use the iHMM model to cluster more complex Bitcoin data from Kaggle (figure \ref{BTCClust}(a)) \cite{KaggleBit}. Our results (figure \ref{BTCClust}(b)) do not shown any intuitive patterns identified. Due to the complexity of the Bitcoin data compared to the Well Log data (which exhibits obvious patterns nearing a synthetic dataset), it is difficult to intuitively evaluate the clustering approaches on the Bitcoin data. As a result, we believe it is more reasonable to use the Well Log data to evaluate the clustering accuracy and online inference.
+In addition to the Well Log data we also attempted to use the iHMM model to cluster more complex Bitcoin data from Kaggle (figure \ref{BTCClust}(a)) \cite{KaggleBit}. Our results (figure \ref{BTCClust}(b)) do not shown any intuitive patterns identified. One reason is that the natural of the data has less cluster structure. So it is difficult to intuitively evaluate the clustering approaches on the Bitcoin data. As a result, we evaluate the clustering accuracy and online inference using the Well Log data only as it is more intuitive. 
 
 \begin{figure}[ht]
 \vskip 0.2in
@@ -333,9 +334,11 @@ For offline training, we first evaluated the number of clusters discovered by th
 
 \subsection{Kernel Learning and Chi-squared Testing}
 
-In online inference our model first fits a SM kernel over each of the clusters discovered by the iHMM to learn the cluster patterns. We used KISS-GP for fast approximate inference when fitting the SM kernel over the learned clusters. Then, as new data is observed online, the new data is clustered according to the online inference process described in section 3.6. We tested on the full Well Log dataset (figure \ref{OIClust}(a)). $N_{new}$ was set to 10. We compared the performance of the popular RBF kernel function with the SM kernel function for GP regression. Each kernel was used to learn the patterns found in the time-series data with the iHMM (figure \ref{OIClust}(b)) and then hypothesis testing was performed online to cluster observed data. Kernel hyperparameters are updated online given the newly clustered data. The results for online inference with the RBF kernel are shown in figure \ref{OIClust}(c) and the results for online inference with the SM kernel are shown in figure \ref{OIClust}(d). For the Well Log data, we found that the RBF and SM kernels performed at a similar level. This is likely due to the simplicity of patterns in the Well Log data clusters, which intuitively appear to be linear patterns with noise. However, we believe that for more complex data, especially periodic time-series data, the SM kernel will show significantly improved performance compared to the RBF kernel. 
+In online inference our model first fits a SM kernel over each of the clusters discovered by the iHMM individually to learn the cluster patterns. We use KISS-GP for fast approximate inference when fitting the SM kernel over the learned clusters. Then, as new data is observed online, the new data is clustered according to the online inference process described in section 3.6. We test on the full Well Log dataset (figure \ref{OIClust}(a)). We choose $N_{new}$ to be 10. We compare the performance of the popular RBF kernel function with the SM kernel function for GP regression. Each kernel was used to learn the patterns found in the time-series data with the iHMM (figure \ref{OIClust}(b)) and then hypothesis testing was performed online to cluster observed data. Kernel hyperparameters are updated online given the newly clustered data. The results for online inference with the RBF kernel are shown in figure \ref{OIClust}(c) and the results for online inference with the SM kernel are shown in figure \ref{OIClust}(d). For the Well Log data, we found that the RBF and SM kernels performed at a similar level. This is likely due to the simplicity of patterns in the Well Log data clusters, which intuitively appear to be linear patterns with noise. However, we believe that for more complex data, especially periodic time-series data, the SM kernel will show significantly improved performance compared to the RBF kernel. 
 
-The parameter $N_{new}$ also has a significant effect on the online inference results as outlined in section 3.6. One issue with using a set value for $N_{new}$ is that points that should belong to different clusters can be assigned to one cluster if the set of points defined by $N_{new}$ includes points from multiple clusters. For future work we would like to implement a sliding window clustering approach that can more accurately cluster new observed data.
+The parameter $N_{new}$ also has a significant effect on the online inference results as outlined in section 3.6. One issue with using a larger value for $N_{new}$ is that points that should belong to different clusters can be assigned to the same cluster if the set of points defined by $N_{new}$ includes points from multiple clusters. For future work we would like to implement a sliding window clustering approach that can more accurately cluster new observed data.
+
+One online inference setting scene can be seen in figure \ref{kissgp}. As we can see that we have short term prediction power along with confidence interval. As noticed that, the online clustering method can be improved using the method described in section 3.6, which is hard to implement within the Gpytorch framework. We hope our future work can overcome the difficulty.  
 
 \begin{figure}[ht]
 \vskip 0.2in
@@ -346,6 +349,18 @@ The parameter $N_{new}$ also has a significant effect on the online inference re
 \end{center}
 \vskip -0.2in
 \end{figure} 
+
+\begin{figure}[ht]
+	\vskip 0.2in
+	\begin{center}
+		\centerline{\includegraphics[width=\columnwidth]{kissgp}}
+		\caption{	
+	One scene of online inference setting. The red line is the prediction mean, the blue filled area is the confidence interval along with the prediction mean.}
+		\label{kissgp}
+	\end{center}
+	\vskip -0.2in
+\end{figure}
+
 
 \section{Discussion}
 

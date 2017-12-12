@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.9.8)  11 DEC 2017 19:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.11.8)  11 DEC 2017 22:55
 entering extended mode
 **./ORIEFinalReport2.tex
 (ORIEFinalReport2.tex
@@ -423,121 +423,129 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: AlgFlow2.png Graphic file (type png)
  <use AlgFlow2.png>
 Package pdftex.def Info: AlgFlow2.png used on input line 111.
-(pdftex.def)             Requested size: 234.8775pt x 236.76048pt.
- [2 <./AlgFlow2.png>] <IBPcomp.png, id=64, 394.47375pt x 143.03438pt>
+(pdftex.def)             Requested size: 170.71652pt x 172.08522pt.
+ [2 <./AlgFlow2.png>] <IBPcomp.png, id=63, 394.47375pt x 143.03438pt>
 File: IBPcomp.png Graphic file (type png)
  <use IBPcomp.png>
 Package pdftex.def Info: IBPcomp.png used on input line 135.
 (pdftex.def)             Requested size: 234.8775pt x 85.16434pt.
 
-[3 <./IBPcomp.png>] <iHMM2.png, id=88, 451.6875pt x 121.20282pt>
+[3 <./IBPcomp.png>] <iHMM2.png, id=87, 451.6875pt x 121.20282pt>
 File: iHMM2.png Graphic file (type png)
 
 <use iHMM2.png>
 Package pdftex.def Info: iHMM2.png used on input line 162.
-(pdftex.def)             Requested size: 234.8775pt x 63.02582pt.
- [4 <./iHMM2.png>]
-Underfull \hbox (badness 1127) in paragraph at lines 287--288
+(pdftex.def)             Requested size: 199.16928pt x 53.44406pt.
+ [4 <./iHMM2.png>] [5]
+Underfull \hbox (badness 1127) in paragraph at lines 288--289
 []\OT1/ptm/m/n/10 We used the MAT-LAB li-brary by Carl Ed-ward Ras-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
+Underfull \hbox (badness 10000) in paragraph at lines 288--289
 \OT1/ptm/m/n/10 mussen writ-ten to demon-strate al-go-rithms from
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
+Underfull \hbox (badness 10000) in paragraph at lines 288--289
 \OT1/ptm/m/n/10 ([][]Ras-mussen & Williams[][], [][]2006[][]) along with code
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
+Underfull \hbox (badness 10000) in paragraph at lines 288--289
 \OT1/ptm/m/n/10 taken from An-drew Gor-don Wil-son's web-site
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
+Underfull \hbox (badness 10000) in paragraph at lines 288--289
 \OT1/ptm/m/n/10 (https://people.orie.cornell.edu/andrew/) for im-ple-
  []
 
 
-Underfull \hbox (badness 5817) in paragraph at lines 287--288
-\OT1/ptm/m/n/10 men-ta-tion of GP re-gres-sion. For im-ple-men-ta-tion
+Underfull \hbox (badness 3354) in paragraph at lines 288--289
+\OT1/ptm/m/n/10 Gael's (https://github.com/tmills/ihmm) iHMM li-brary.
  []
 
 
-Underfull \hbox (badness 5475) in paragraph at lines 287--288
-\OT1/ptm/m/n/10 of the iHMM we bor-rowed MAT-LAB code from
+Underfull \hbox (badness 3601) in paragraph at lines 288--289
+\OT1/ptm/m/n/10 de-vel-op-ing GPy-Torch pack-age from Cor-nell Uni-ver-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
-\OT1/ptm/m/n/10 Ju-r-gen Van Gael's (https://github.com/tmills/ihmm)
+Underfull \hbox (badness 3623) in paragraph at lines 288--289
+\OT1/ptm/m/n/10 sity (https://github.com/jrg365/gpytorch), which is an
  []
 
 
-Underfull \hbox (badness 1365) in paragraph at lines 287--288
-\OT1/ptm/m/n/10 iHMM li-brary. For im-ple-men-ta-tion of KISS-GP we
- []
-
-
-Underfull \hbox (badness 6078) in paragraph at lines 287--288
-\OT1/ptm/m/n/10 bor-rowed code from the Python li-brary GPy-Torch
- []
-
-[5]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-<OFClust.png, id=135, 341.77687pt x 397.485pt>
+<OFClust.png, id=134, 341.77687pt x 397.485pt>
 File: OFClust.png Graphic file (type png)
  <use OFClust.png>
-Package pdftex.def Info: OFClust.png used on input line 298.
+Package pdftex.def Info: OFClust.png used on input line 299.
 (pdftex.def)             Requested size: 234.8775pt x 273.16714pt.
- [6 <./OFClust.png>] <BTCClust.png, id=161, 393.72093pt x 379.4175pt>
+
+<BTCClust.png, id=149, 393.72093pt x 379.4175pt>
 File: BTCClust.png Graphic file (type png)
  <use BTCClust.png>
-Package pdftex.def Info: BTCClust.png used on input line 312.
+Package pdftex.def Info: BTCClust.png used on input line 313.
 (pdftex.def)             Requested size: 234.8775pt x 226.34384pt.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 323.
-
-<OIClust.png, id=173, 374.14781pt x 355.3275pt>
-File: OIClust.png Graphic file (type png)
- <use OIClust.png>
-Package pdftex.def Info: OIClust.png used on input line 343.
-(pdftex.def)             Requested size: 234.8775pt x 223.0659pt.
-
-Underfull \hbox (badness 1859) in paragraph at lines 344--344
-[][][]\OT1/ptm/m/n/9 Online in-fer-ence ex-per-i-men-tal com-par-i-son be-tween
-
- []
+               Default added (so using `tbp') on input line 324.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7 <./BTCClust.png>] (ORIEFinalReport2.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 359.
- [8 <./OIClust.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 359.
+ [6]
+Underfull \vbox (badness 3302) has occurred while \output is active []
+
+
+<OIClust.png, id=176, 374.14781pt x 355.3275pt>
+File: OIClust.png Graphic file (type png)
+ <use OIClust.png>
+Package pdftex.def Info: OIClust.png used on input line 346.
+(pdftex.def)             Requested size: 234.8775pt x 223.0659pt.
+
+Underfull \hbox (badness 1859) in paragraph at lines 347--347
+[][][]\OT1/ptm/m/n/9 Online in-fer-ence ex-per-i-men-tal com-par-i-son be-tween
+
+ []
+
+<kissgp.png, id=185, 365.11406pt x 331.99031pt>
+File: kissgp.png Graphic file (type png)
+ <use kissgp.png>
+Package pdftex.def Info: kissgp.png used on input line 356.
+(pdftex.def)             Requested size: 234.8775pt x 213.56726pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7 <./OFClust.png> <./BTCClust.png>] (ORIEFinalReport2.bbl
+Underfull \vbox (badness 1484) has occurred while \output is active []
+
+ [8 <./OIClust.png> <./kissgp.png>])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 374.
+ [9
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 374.
  (ORIEFinalReport2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 359.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 359.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 374.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 374.
 Package rerunfilecheck Info: File `ORIEFinalReport2.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 359.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 374.
  ) 
 Here is how much of TeX's memory you used:
- 6941 strings out of 493323
- 98194 string characters out of 3139067
- 202291 words of memory out of 3000000
- 10333 multiletter control sequences out of 15000+200000
+ 6949 strings out of 493323
+ 98285 string characters out of 3139063
+ 205467 words of memory out of 3000000
+ 10338 multiletter control sequences out of 15000+200000
  25843 words of font info for 50 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,12n,45p,2603b,332s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 28i,11n,45p,2603b,444s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
@@ -552,9 +560,9 @@ onts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
 1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8
 a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program
  Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on ORIEFinalReport2.pdf (8 pages, 433831 bytes).
+Output written on ORIEFinalReport2.pdf (9 pages, 490590 bytes).
 PDF statistics:
- 258 PDF objects out of 1000 (max. 8388607)
- 50 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 265 PDF objects out of 1000 (max. 8388607)
+ 52 named destinations out of 1000 (max. 500000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
